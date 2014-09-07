@@ -1,0 +1,62 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+
+require 'konstant'
+
+unless Konstant.env == "production"
+  require "debugger"
+end
+
+cli = Konstant::Cli.new
+cli.parse_options
+command = cli.cli_arguments.first
+
+if cli.config[:config_file]
+  Konstant.configure JSON.parse(File.read cli.config[:config_file])  
+end
+
+
+[:INT, :TERM].each do |sig|
+  trap sig do
+    puts "shutting down ..."
+    Konstant.shutdown_handlers.each do |sh|
+      sh.call
+    end
+  end
+end
+
+case command
+  when "run"
+    require "puma"
+    require "rack/handler/puma"
+
+    threads = []
+
+    if cli.config[:web]
+      threads << Thread.new do
+        options = {
+          :Host => cli.config[:host],
+          :Port => cli.config[:port]
+        }
+
+        Rack::Handler::Puma.run Konstant::Web, options do |server|
+          Konstant.shutdown_handlers << Proc.new do
+            server.stop
+          end
+        end
+      end
+    end
+
+    if cli.config[:scheduler]
+      threads << Thread.new do
+        Konstant::Scheduler.new.run
+      end
+    end
+
+    threads.map{|t| t.join}
+  when "config"
+    p Konstant.config
+  else
+    raise "unknown command #{command}"
+end

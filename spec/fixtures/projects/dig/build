@@ -1,0 +1,6 @@
+#!/bin/sh
+
+echo "some output"
+>&2 echo "some warning"
+
+exit 0
