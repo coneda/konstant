@@ -13,13 +13,12 @@ cli.parse_options
 command = cli.cli_arguments.first
 
 if cli.config[:config_file]
-  Konstant.configure JSON.parse(File.read cli.config[:config_file])  
+  Konstant.configure JSON.parse(File.read cli.config[:config_file])
 end
-
 
 [:INT, :TERM].each do |sig|
   trap sig do
-    puts "shutting down ..."
+    Konstant.logger.info "shutting down ..."
     Konstant.shutdown_handlers.each do |sh|
       sh.call
     end
@@ -58,5 +57,5 @@ case command
   when "config"
     p Konstant.config
   else
-    raise "unknown command #{command}"
+    raise "unknown command '#{command}'"
 end

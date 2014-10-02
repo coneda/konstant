@@ -1,5 +1,6 @@
 require "konstant/version"
 
+require "logger"
 require "json"
 
 module Konstant
@@ -16,7 +17,7 @@ module Konstant
 
   def self.default_config
     return {
-      "data_dir" => "/var/lib/konstant",
+      "data_dir" => ".",
       "builds_to_keep" => 50
     }
   end
@@ -31,6 +32,11 @@ module Konstant
 
   def self.reset_data_dir
     system "rm -rf #{config['data_dir']}"
+  end
+
+  def self.copy_fixture_projects
+    system "mkdir -p #{config['data_dir']}"
+    system "cp -a #{root}/spec/fixtures/projects #{config['data_dir']}/projects"  
   end
 
   def self.env
@@ -53,6 +59,14 @@ module Konstant
     @shutdown_handlers ||= [
       Proc.new { Konstant.shutdown! }
     ]
+  end
+
+  def self.logger
+    @logger ||= begin
+      result = Logger.new(STDOUT)
+      result.level = Logger::INFO
+      result
+    end
   end
 
   def self.measure

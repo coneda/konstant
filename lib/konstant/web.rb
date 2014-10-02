@@ -1,3 +1,5 @@
+require "rack"
+
 class Konstant::Web
 
   def self.call(env)
@@ -8,8 +10,16 @@ class Konstant::Web
     @env = env
   end
 
+  def request
+    @request ||= Rack::Request.new(@env)
+  end
+
   def route
-    [200, {"Content-type" => "text/plain"}, ["hello world"]]
+    if request.path.match(/\//)
+      [200, {"Content-type" => "application/json"}, ['{"a": 12}']]
+    else
+      [404, {"Content-type" => "text/plain"}, ["not found"]]
+    end
   end
 
 end

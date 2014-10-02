@@ -8,11 +8,8 @@ describe Konstant::Build do
     expect(runner.build.status).to eq(127)
   end
 
-  it "should store the build's output and error output" do
-    system "mkdir -p #{Konstant.config['data_dir']}/projects"
-    system "cp -a #{Konstant.root}/spec/fixtures/projects/dig #{Konstant.config['data_dir']}/projects/dig"
-
-    runner = described_class.new("dig")
+  it "should store the build's output and error output", :fixture_projects => true do
+    runner = described_class.new("test_project_01")
     runner.run
 
     expect(runner.build.stdout).to eq("some output\n")

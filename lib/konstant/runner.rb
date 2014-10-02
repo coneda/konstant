@@ -12,7 +12,7 @@ class Konstant::Runner
     duration = Konstant.measure do
       system "mkdir -p #{build_dir}"
       File.open status_file, "w" do |f|
-        system "#{project_dir}/#{task} > #{stdout_file} 2> #{stderr_file}"
+        system environment, "#{project_dir}/#{task} > #{stdout_file} 2> #{stderr_file}"
         f.puts $?.exitstatus
       end
     end
@@ -22,6 +22,13 @@ class Konstant::Runner
     end
 
     status == 0
+  end
+
+  def environment
+    return {
+      "KONSTANT_PROJECT_ROOT" => project_dir,
+      "KONSTANT_TIMESTAMP" => @timestamp
+    }
   end
 
   def build_dir
