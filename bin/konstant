@@ -58,6 +58,8 @@ case command
   when "config"
     Konstant.configure "./konstant.js"
     p Konstant.config
+  when "init"
+    system "cp -a #{Konstant.root}/data/templates/data_dir/* ."
   when "generate"
     item = cli.cli_arguments[1]
 
@@ -66,12 +68,6 @@ case command
         project_id = cli.cli_arguments[2]
         Konstant.configure "./konstant.js"
         system "cp -a #{Konstant.root}/data/templates/project #{Konstant.config['data_dir']}/projects/#{project_id}"
-      when "data_dir"
-        if target = cli.cli_arguments[2]
-          system "cp -a #{Konstant.root}/data/templates/data_dir #{target}"
-        else
-          puts "Please specify a target"
-        end
       else
         puts "Generator doesn't exist: '#{item}'"
     end
