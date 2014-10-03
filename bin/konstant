@@ -14,7 +14,6 @@ command = cli.cli_arguments.first
 
 [:INT, :TERM].each do |sig|
   trap sig do
-    Konstant.logger.info "shutting down ..."
     Konstant.shutdown_handlers.each do |sh|
       sh.call
     end
@@ -66,7 +65,7 @@ case command
       when "project"
         project_id = cli.cli_arguments[2]
         Konstant.configure JSON.parse(File.read "./konstant.js")
-        system "cp -a #{Konstant.root}/data/templates/project #{Konstant.config['data_dir']}/projects/#{name}"
+        system "cp -a #{Konstant.root}/data/templates/project #{Konstant.config['data_dir']}/projects/#{project_id}"
       when "data_dir"
         if target = cli.cli_arguments[2]
           system "cp -a #{Konstant.root}/data/templates/data_dir #{target}"
