@@ -4,12 +4,6 @@ class Konstant::Cli
 
   include Mixlib::CLI
 
-  option(:config_file,
-    :short => "-c FILE",
-    :long => "--config-file FILE",
-    :default => "konstant.js"
-  )
-
   option(:web,
     :short => "-w",
     :long => "--web",
@@ -32,6 +26,12 @@ class Konstant::Cli
     :short => "-p PORT",
     :long => "--port PORT",
     :default => "9105"
+  )
+
+  option(:name,
+    :short => "-n NAME",
+    :long => "--name NAME",
+    :default => "sample_project"
   )
 
 end

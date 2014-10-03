@@ -16,10 +16,6 @@ describe Konstant do
     expect(described_class.config["builds_to_keep"]).to eq(25)
   end
  
-  it "should use a default configuration for unspecified values" do
-    expect(described_class.config["builds_to_keep"]).to eq(50)
-  end
-
   it "uses an environment" do
     expect(Konstant.env).to eq("test")
   end

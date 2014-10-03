@@ -1,0 +1,3 @@
+{
+  "notify": ["admin@example.com"]
+}

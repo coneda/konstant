@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Add code to cleanup the build directory after each build. This happens in
+# case of success and failure alike.
+echo "Cleaning up ..."

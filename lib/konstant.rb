@@ -12,14 +12,7 @@ module Konstant
   autoload :Web, "konstant/web"
 
   def self.config
-    @config ||= default_config
-  end
-
-  def self.default_config
-    return {
-      "data_dir" => ".",
-      "builds_to_keep" => 50
-    }
+    @config ||= {}
   end
 
   def self.configure(new_config)
@@ -27,7 +20,7 @@ module Konstant
   end
 
   def self.reset_config
-    @config = default_config
+    @config = nil
   end
 
   def self.reset_data_dir

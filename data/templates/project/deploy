@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Add code to deploy this project to production after a successful build
+echo "Deploying ..."

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Some normal output (stdout)
+echo "Building ..."
+
+# Some output to stderr
+>&2 echo "Warning: This should not be ..."
+
+# Exit with positive status code (build succeeded)
+exit 0
