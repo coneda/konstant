@@ -28,4 +28,10 @@ class Konstant::Cli
     :default => "9105"
   )
 
+  option(:version,
+    :short => "-v",
+    :long => "--version",
+    :default => false
+  )
+
 end

@@ -20,6 +20,8 @@ command = cli.cli_arguments.first
   end
 end
 
+command = "version" if cli.config[:version]
+
 case command
   when "version"
     puts Konstant::VERSION
