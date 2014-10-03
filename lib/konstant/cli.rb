@@ -28,10 +28,4 @@ class Konstant::Cli
     :default => "9105"
   )
 
-  option(:name,
-    :short => "-n NAME",
-    :long => "--name NAME",
-    :default => "sample_project"
-  )
-
 end

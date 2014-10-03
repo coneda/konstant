@@ -1,3 +1,3 @@
 {
-  "notify": ["admin@example.com"]
+  "notify": []
 }

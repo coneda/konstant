@@ -22,6 +22,8 @@ command = cli.cli_arguments.first
 end
 
 case command
+  when "version"
+    puts Konstant::VERSION
   when "run"
     Konstant.configure JSON.parse(File.read "./konstant.js")
 
@@ -43,12 +45,14 @@ case command
           end
         end
       end
+      puts "Web server started"
     end
 
     if cli.config[:scheduler]
       threads << Thread.new do
         Konstant::Scheduler.new.run
       end
+      puts "Build scheduler started"
     end
 
     threads.map{|t| t.join}
@@ -60,8 +64,9 @@ case command
 
     case item
       when "project"
+        project_id = cli.cli_arguments[2]
         Konstant.configure JSON.parse(File.read "./konstant.js")
-        system "cp -a #{Konstant.root}/data/templates/project #{Konstant.config['data_dir']}/projects/#{cli.config[:name]}"
+        system "cp -a #{Konstant.root}/data/templates/project #{Konstant.config['data_dir']}/projects/#{name}"
       when "data_dir"
         if target = cli.cli_arguments[2]
           system "cp -a #{Konstant.root}/data/templates/data_dir #{target}"

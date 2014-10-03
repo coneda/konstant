@@ -16,7 +16,7 @@ class Konstant::Scheduler
         thread.kill
       end
 
-      sleep 5
+      sleep Konstant.config['new_projects_interval']
     end
   end
 
@@ -41,14 +41,10 @@ class Konstant::Scheduler
             system "rm #{path}/running.txt"
           end
         else
-          sleep 1
+          sleep Konstant.config["build_check_interval"]
         end
       end
     end
-  end
-
-  def self.run(build)
-
   end
 
 end
