@@ -14,6 +14,7 @@ class Konstant::Scheduler
       (@threads.keys - project_ids).each do |project_id|
         thread = @thread.delete project_id
         thread.kill
+        Konstant.logger.info "stopped worker for project '#{project_id}'"
       end
 
       sleep Konstant.config['new_projects_interval']

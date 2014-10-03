@@ -4,7 +4,7 @@
     <title>Konstant CI</title>
 
     <link rel="stylesheet" type="text/css" href="/assets/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/assets/bootstrap-theme.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/assets/bootstrap-theme.min.css"> -->
     <link rel="stylesheet" type="text/css" href="/assets/style.css">
 
     <script type="text/javascript" src="/assets/jquery-2.1.1.min.js"></script>
@@ -17,7 +17,7 @@
     <div class="container">
       <div class="jumbotron">
         <h1>
-          <strong>Konstant</strong> CI
+          <strong class="text-success">Konstant</strong> CI
           <p>
             Continuous delivery made easy
           </p>
@@ -54,16 +54,22 @@
                   <tr>
                     <th>Timestamp</th>
                     <th class="text-right">Exit code</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="build in project.builds" ng-mouseover="show_build(build)">
+                  <tr ng-repeat="build in project.builds">
                     <td>
                       <i class="text-success glyphicon glyphicon-ok-sign" ng-show="build.ok"></i>
                       <i class="text-danger glyphicon glyphicon-exclamation-sign" ng-show="!build.ok"></i>
                       <span ng-bind="build.human"></span>
                     </td>
                     <td class="text-right" ng-bind="build.status"></td>
+                    <td class="text-right">
+                      <button class="btn btn-primary btn-xs" ng-click="show_build(build)">
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                      </button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
