@@ -26,4 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "json"
   spec.add_dependency "puma"
   spec.add_dependency "mixlib-cli"
+  spec.add_dependency "mail"
 end

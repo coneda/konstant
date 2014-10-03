@@ -40,11 +40,11 @@ class Konstant::Runner
   end
 
   def stdout_file
-    "#{build_dir}/#{task}.stdout.log"
+    "#{build_dir}/#{task}.stdout"
   end
 
   def stderr_file
-    "#{build_dir}/#{task}.stderr.log"
+    "#{build_dir}/#{task}.stderr"
   end
 
   def status_file

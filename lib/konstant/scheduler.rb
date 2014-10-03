@@ -22,7 +22,7 @@ class Konstant::Scheduler
 
   def project_worker(project_id)
     Thread.new do
-      path = "#{Konstant.config['data_dir']}/#{project_id}"
+      path = "#{Konstant.config['data_dir']}/projects/#{project_id}"
       Konstant.logger.info "started worker for project '#{project_id}'"
 
       until Konstant.shutdown? do

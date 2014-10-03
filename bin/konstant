@@ -24,7 +24,7 @@ case command
   when "version"
     puts Konstant::VERSION
   when "run"
-    Konstant.configure JSON.parse(File.read "./konstant.js")
+    Konstant.configure "./konstant.js"
 
     require "puma"
     require "rack/handler/puma"
@@ -56,7 +56,7 @@ case command
 
     threads.map{|t| t.join}
   when "config"
-    Konstant.configure JSON.parse(File.read "./konstant.js")
+    Konstant.configure "./konstant.js"
     p Konstant.config
   when "generate"
     item = cli.cli_arguments[1]
@@ -64,7 +64,7 @@ case command
     case item
       when "project"
         project_id = cli.cli_arguments[2]
-        Konstant.configure JSON.parse(File.read "./konstant.js")
+        Konstant.configure "./konstant.js"
         system "cp -a #{Konstant.root}/data/templates/project #{Konstant.config['data_dir']}/projects/#{project_id}"
       when "data_dir"
         if target = cli.cli_arguments[2]

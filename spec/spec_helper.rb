@@ -5,11 +5,17 @@ require 'konstant'
 
 require "debugger"
 
+Mail.defaults do
+  delivery_method :test
+end
+
 RSpec.configure do |config|
   config.before :each do |example|
     Konstant.reset_config
 
+    Konstant.configure "#{Konstant.root}/data/templates/data_dir/konstant.js"
     Konstant.configure "data_dir" => "#{Konstant.root}/tmp/test_data"
+
     Konstant.reset_data_dir
 
     if example.metadata[:fixture_projects]

@@ -2,6 +2,7 @@ require "konstant/version"
 
 require "logger"
 require "json"
+require "mail"
 
 module Konstant
 
@@ -16,7 +17,10 @@ module Konstant
   end
 
   def self.configure(new_config)
-    config.merge! new_config
+    case new_config
+      when Hash then config.merge! new_config
+      when String then config.merge! JSON.parse(File.read new_config)
+    end
   end
 
   def self.reset_config
@@ -28,8 +32,8 @@ module Konstant
   end
 
   def self.copy_fixture_projects
-    system "mkdir -p #{config['data_dir']}"
-    system "cp -a #{root}/spec/fixtures/projects #{config['data_dir']}/projects"  
+    system "cp -a #{root}/data/templates/data_dir #{config['data_dir']}/"
+    system "cp -a #{root}/spec/fixtures/projects/* #{config['data_dir']}/projects/"
   end
 
   def self.env
