@@ -40,7 +40,14 @@ case command
           :Port => cli.config[:port]
         }
 
-        Rack::Handler::Puma.run Konstant::Web, options do |server|
+        app = Konstant::Web
+        static = Rack::Static.new(app,
+          :urls => ["/assets"],
+          :root => "#{Konstant.root}/public",
+          :index => "index.html"
+        )
+
+        Rack::Handler::Puma.run static, options do |server|
           Konstant.shutdown_handlers << Proc.new do
             server.stop
           end

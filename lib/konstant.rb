@@ -7,7 +7,9 @@ require "mail"
 module Konstant
 
   autoload :Build, "konstant/build"
+  autoload :Builder, "konstant/builder"
   autoload :Cli, "konstant/cli"
+  autoload :Project, "konstant/project"
   autoload :Scheduler, "konstant/scheduler"
   autoload :Runner, "konstant/runner"
   autoload :Web, "konstant/web"
@@ -64,6 +66,10 @@ module Konstant
       result.level = Logger::INFO
       result
     end
+  end
+
+  def self.logger=(value)
+    @logger = value
   end
 
   def self.measure

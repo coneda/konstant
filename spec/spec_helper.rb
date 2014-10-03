@@ -11,6 +11,8 @@ end
 
 RSpec.configure do |config|
   config.before :each do |example|
+    Konstant.logger = Logger.new("/dev/null")
+
     Konstant.reset_config
 
     Konstant.configure "#{Konstant.root}/data/templates/data_dir/konstant.js"

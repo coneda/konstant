@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Konstant CI</title>
+
+    <link rel="stylesheet" type="text/css" href="/assets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/style.css">
+
+    <script type="text/javascript" src="/assets/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/assets/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/angular.min.js"></script>
+    <script type="text/javascript" src="/assets/app.js"></script>
+  </head>
+
+  <body ng-app="k" ng-controller="root_controller">
+    <div class="container">
+      <div class="jumbotron">
+        <h1>
+          <strong>Konstant</strong> CI
+          <p>
+            Continuous delivery made easy
+          </p>
+        </h1>
+      </div>
+
+      <div class="page-header">
+        <h1>Project <small>listing</small></h1>
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-5">
+          <div ng-repeat="project in projects" class="panel panel-default">
+            <div class="panel-heading">
+              <div class="pull-right">
+                <button class="btn btn-xs btn-primary" ng-click="load_project_builds(project)">
+                  <i class="glyphicon glyphicon-tasks"></i>
+                </button>
+                <button class="btn btn-xs btn-primary" ng-click="build_project(project)">
+                  <i class="glyphicon glyphicon-repeat"></i>
+                  build now
+                </button>
+              </div>
+
+              <i class="text-success glyphicon glyphicon-ok-sign" ng-show="project.ok && !project.building"></i>
+              <i class="text-danger glyphicon glyphicon-exclamation-sign" ng-show="!project.ok && !project.building"></i>
+              <i class="text-warning glyphicon glyphicon-question-sign" ng-show="project.building"></i>
+              <strong ng-bind="project.id"></strong>
+            </div>
+            <div class="panel-body" ng-show="project.builds">
+              <table class="table table-condensed table-striped">
+                <thead>
+                  <tr>
+                    <th>Timestamp</th>
+                    <th class="text-right">Exit code</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="build in project.builds" ng-mouseover="show_build(build)">
+                    <td>
+                      <i class="text-success glyphicon glyphicon-ok-sign" ng-show="build.ok"></i>
+                      <i class="text-danger glyphicon glyphicon-exclamation-sign" ng-show="!build.ok"></i>
+                      <span ng-bind="build.human"></span>
+                    </td>
+                    <td class="text-right" ng-bind="build.status"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-7">
+          <div ng-show="current_build">
+            <h2>Build {{current_build.human}}</h2>
+
+            <label>Stderr</label>
+            <pre ng-bind="current_build.stderr"></pre>
+            <label>Stdout</label>
+            <pre ng-bind="current_build.stdout"></pre>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </body>
+</html>

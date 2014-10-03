@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Konstant::Build do
+describe Konstant::Builder do
 
   it "should handle a missing build script" do
     runner = described_class.new("noexist")
