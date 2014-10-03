@@ -12,8 +12,6 @@ cli = Konstant::Cli.new
 cli.parse_options
 command = cli.cli_arguments.first
 
-Konstant.configure JSON.parse(File.read "./konstant.js")
-
 [:INT, :TERM].each do |sig|
   trap sig do
     Konstant.logger.info "shutting down ..."
@@ -25,6 +23,8 @@ end
 
 case command
   when "run"
+    Konstant.configure JSON.parse(File.read "./konstant.js")
+
     require "puma"
     require "rack/handler/puma"
 
@@ -53,12 +53,14 @@ case command
 
     threads.map{|t| t.join}
   when "config"
+    Konstant.configure JSON.parse(File.read "./konstant.js")
     p Konstant.config
   when "generate"
     item = cli.cli_arguments[1]
 
     case item
       when "project"
+        Konstant.configure JSON.parse(File.read "./konstant.js")
         system "cp -a #{Konstant.root}/data/templates/project #{Konstant.config['data_dir']}/projects/#{cli.config[:name]}"
       when "data_dir"
         if target = cli.cli_arguments[2]
@@ -67,7 +69,7 @@ case command
           puts "Please specify a target"
         end
       else
-        "Generator doesn't exist: '#{item}'"
+        puts "Generator doesn't exist: '#{item}'"
     end
   else
     raise "unknown command '#{command}'"
