@@ -53,6 +53,7 @@ case command
           end
         end
       end
+      sleep 2
       puts "Web server started"
     end
 
