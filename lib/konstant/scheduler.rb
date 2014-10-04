@@ -23,22 +23,22 @@ class Konstant::Scheduler
 
   def project_worker(project_id)
     Thread.new do
-      path = "#{Konstant.config['data_dir']}/projects/#{project_id}"
-      Konstant.logger.info "started worker for project '#{project_id}'"
+      project = Konstant::Project.new(project_id)
+      Konstant.logger.info "started worker for project '#{project.id}'"
 
       until Konstant.shutdown? do
-        Konstant.logger.debug "polling project '#{project_id}'"
-        if File.exists?("#{path}/run.txt")
-          system "rm #{path}/run.txt"
+        Konstant.logger.debug "polling project '#{project.id}'"
+        if File.exists?("#{project.path}/run.txt")
+          system "rm #{project.path}/run.txt"
 
           begin
-            system "touch #{path}/running.txt"
-            Konstant::Builder.new(project_id).run
+            system "touch #{project.path}/running.txt"
+            Konstant::Builder.new(project).run
           rescue => e
             puts e.message
             puts e.backtrace
           ensure
-            system "rm #{path}/running.txt"
+            system "rm #{project.path}/running.txt"
           end
         else
           sleep Konstant.config["build_check_interval"]

@@ -14,7 +14,7 @@
   </head>
 
   <body ng-app="k" ng-controller="root_controller">
-    <div class="container">
+    <div class="container-fluid">
       <div class="jumbotron">
         <h1>
           <strong class="text-success">Konstant</strong> CI
@@ -31,11 +31,12 @@
       <div class="row">
 
         <div class="col-md-5">
-          <div ng-repeat="project in projects" class="panel panel-default">
+          <div ng-repeat="(id, project) in projects" class="panel panel-default">
             <div class="panel-heading">
               <div class="pull-right">
                 <button class="btn btn-xs btn-primary" ng-click="load_project_builds(project)">
                   <i class="glyphicon glyphicon-tasks"></i>
+                  show builds
                 </button>
                 <button class="btn btn-xs btn-primary" ng-click="build_project(project)">
                   <i class="glyphicon glyphicon-repeat"></i>
@@ -43,10 +44,45 @@
                 </button>
               </div>
 
-              <i class="text-success glyphicon glyphicon-ok-sign" ng-show="project.ok && !project.building"></i>
-              <i class="text-danger glyphicon glyphicon-exclamation-sign" ng-show="!project.ok && !project.building"></i>
-              <i class="text-warning glyphicon glyphicon-question-sign" ng-show="project.building"></i>
               <strong ng-bind="project.id"></strong>
+              <span ng-show="!project.building">
+                <span class="label label-success" ng-show="project.ok">
+                  <i class="glyphicon glyphicon-ok-sign"></i>
+                  build
+                </span>
+                <span class="label label-danger" ng-show="!project.ok">
+                  <i class="glyphicon glyphicon-exclamation-sign"></i>
+                  build
+                </span>
+
+                <span ng-show="project.ok">
+                  &nbsp;
+                  <span class="label label-success" ng-show="project.deploy_ok">
+                    <i class="glyphicon glyphicon-ok-sign"></i>
+                    deploy
+                  </span>
+                  <span class="label label-danger" ng-show="!project.deploy_ok">
+                    <i class="glyphicon glyphicon-exclamation-sign"></i>
+                    deploy
+                  </span>
+                </span>
+                
+                &nbsp;
+                <span class="label label-success" ng-show="project.cleanup_ok">
+                  <i class="glyphicon glyphicon-ok-sign"></i>
+                  cleanup
+                </span>
+                <span class="label label-danger" ng-show="!project.cleanup_ok">
+                  <i class="glyphicon glyphicon-exclamation-sign"></i>
+                  cleanup
+                </span>
+              </span>
+              <span ng-show="project.building">
+                <span class="label label-warning">
+                  <i class="glyphicon glyphicon-question-sign"></i>
+                  building
+                </span>
+              </span>
             </div>
             <div class="panel-body" ng-show="project.builds">
               <table class="table table-condensed table-striped">
@@ -54,7 +90,11 @@
                   <tr>
                     <th>Timestamp</th>
                     <th class="text-right">Exit code</th>
-                    <th></th>
+                    <th class="text-right">
+                      <button class="btn btn-xs btn-primary" ng-click="update_project_builds(project)">
+                        <i class="glyphicon glyphicon-repeat"></i>
+                      </button>  
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -67,6 +107,7 @@
                     <td class="text-right" ng-bind="build.status"></td>
                     <td class="text-right">
                       <button class="btn btn-primary btn-xs" ng-click="show_build(build)">
+                        show output
                         <i class="glyphicon glyphicon-chevron-right"></i>
                       </button>
                     </td>
@@ -79,12 +120,47 @@
 
         <div class="col-md-7">
           <div ng-show="current_build">
+            <div class="pull-right">
+              <button class="btn btn-xs btn-primary" ng-click="update_build(current_build)">
+                <i class="glyphicon glyphicon-repeat"></i>
+              </button>
+            </div>
             <h2>Build {{current_build.human}}</h2>
 
-            <label>Stderr</label>
-            <pre ng-bind="current_build.stderr"></pre>
-            <label>Stdout</label>
-            <pre ng-bind="current_build.stdout"></pre>
+            <div ng-show="current_build.stderr">
+              <label>Stderr</label>
+              <pre ng-bind="current_build.stderr"></pre>
+            </div>
+            <div ng-show="current_build.stdout">
+              <label>Stdout</label>
+              <pre ng-bind="current_build.stdout"></pre>
+            </div>
+
+            <div ng-show="current_build.deploy.status">
+              <label>Deploy status</label>
+              <pre ng-bind="current_build.deploy.status"></pre>
+            </div>
+            <div ng-show="current_build.deploy.stdout">
+              <label>Deploy stdout</label>
+              <pre ng-bind="current_build.deploy.stdout"></pre>
+            </div>
+            <div ng-show="current_build.deploy.stderr">
+              <label>Deploy stderr</label>
+              <pre ng-bind="current_build.deploy.stderr"></pre>
+            </div>
+
+            <div ng-show="current_build.cleanup.status">
+              <label>Cleanup status</label>
+              <pre ng-bind="current_build.cleanup.status"></pre>
+            </div>
+            <div ng-show="current_build.cleanup.stdout">
+              <label>Cleanup stdout</label>
+              <pre ng-bind="current_build.cleanup.stdout"></pre>
+            </div>
+            <div ng-show="current_build.cleanup.stderr">
+              <label>Cleanup stderr</label>
+              <pre ng-bind="current_build.cleanup.stderr"></pre>
+            </div>
           </div>
         </div>
 

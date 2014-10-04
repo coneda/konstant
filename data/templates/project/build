@@ -1,10 +1,8 @@
-#!/bin/bash
+#!/bin/bash -e
 
-# Some normal output (stdout)
-echo "Building ..."
-
-# Some output to stderr
->&2 echo "Warning: This should not be ..."
+# Some output (stdout)
+echo "Building in project dir $KONSTANT_PROJECT_ROOT ..."
+echo "The build timestamp is $KONSTANT_TIMESTAMP"
 
 # Exit with positive status code (build succeeded)
-exit 0
+# exit 0

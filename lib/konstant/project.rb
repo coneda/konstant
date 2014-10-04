@@ -12,10 +12,6 @@ class Konstant::Project
     end
   end
 
-  def ok?
-    last_build && last_build.ok?
-  end
-
   def build!
     system "touch #{path}/run.txt"
   end
@@ -46,10 +42,28 @@ class Konstant::Project
     end
   end
 
+  def ok?(task = 'build')
+    last_build && last_build.ok?(task)
+  end
+
+  def status(task = 'build')
+    last_build ? last_build.status(task) : nil
+  end
+
+  def stdout(task = 'build')
+    last_build ? last_build.stdout(task) : nil
+  end
+
+  def stderr(task = 'build')
+    last_build ? last_build.stderr(task) : nil
+  end
+
   def as_json(*)
     return {
       "id" => id,
       "ok" => ok?,
+      "deploy_ok" => ok?('deploy'),
+      "cleanup_ok" => ok?('cleanup'),
       "building" => building?
     }
   end
