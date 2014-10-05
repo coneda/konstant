@@ -1,4 +1,4 @@
-Copyright (c) 2014 Moritz Schepp
+Copyright (c) 2014 Moritz Schepp (moritz.schepp@gmail.com)
 
 MIT License
 

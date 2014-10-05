@@ -45,46 +45,48 @@
               </div>
 
               <strong ng-bind="project.id"></strong>
-              <span ng-show="!project.building">
-                <span class="label label-success" ng-show="project.ok">
-                  <i class="glyphicon glyphicon-ok-sign"></i>
-                  build
-                </span>
-                <span class="label label-danger" ng-show="!project.ok">
-                  <i class="glyphicon glyphicon-exclamation-sign"></i>
-                  build
-                </span>
+              <div>
+                <span ng-show="!project.building">
+                  <span class="label label-success" ng-show="project.ok">
+                    <i class="glyphicon glyphicon-ok-sign"></i>
+                    build
+                  </span>
+                  <span class="label label-danger" ng-show="!project.ok">
+                    <i class="glyphicon glyphicon-exclamation-sign"></i>
+                    build
+                  </span>
 
-                <span ng-show="project.deploy_ok != null">
-                  &nbsp;
-                  <span class="label label-success" ng-show="project.deploy_ok">
-                    <i class="glyphicon glyphicon-ok-sign"></i>
-                    deploy
+                  <span ng-show="project.deploy_ok != null">
+                    &nbsp;
+                    <span class="label label-success" ng-show="project.deploy_ok">
+                      <i class="glyphicon glyphicon-ok-sign"></i>
+                      deploy
+                    </span>
+                    <span class="label label-danger" ng-show="!project.deploy_ok">
+                      <i class="glyphicon glyphicon-exclamation-sign"></i>
+                      deploy
+                    </span>
                   </span>
-                  <span class="label label-danger" ng-show="!project.deploy_ok">
-                    <i class="glyphicon glyphicon-exclamation-sign"></i>
-                    deploy
+                  
+                  <span ng-show="project.cleanup_ok != null">
+                    &nbsp;
+                    <span class="label label-success" ng-show="project.cleanup_ok">
+                      <i class="glyphicon glyphicon-ok-sign"></i>
+                      cleanup
+                    </span>
+                    <span class="label label-danger" ng-show="!project.cleanup_ok">
+                      <i class="glyphicon glyphicon-exclamation-sign"></i>
+                      cleanup
+                    </span>
                   </span>
                 </span>
-                
-                <span ng-show="project.cleanup_ok != null">
-                  &nbsp;
-                  <span class="label label-success" ng-show="project.cleanup_ok">
-                    <i class="glyphicon glyphicon-ok-sign"></i>
-                    cleanup
-                  </span>
-                  <span class="label label-danger" ng-show="!project.cleanup_ok">
-                    <i class="glyphicon glyphicon-exclamation-sign"></i>
-                    cleanup
+                <span ng-show="project.building">
+                  <span class="label label-warning">
+                    <i class="glyphicon glyphicon-question-sign"></i>
+                    building
                   </span>
                 </span>
-              </span>
-              <span ng-show="project.building">
-                <span class="label label-warning">
-                  <i class="glyphicon glyphicon-question-sign"></i>
-                  building
-                </span>
-              </span>
+              </div>
             </div>
             <div class="panel-body" ng-show="project.builds">
               <table class="table table-condensed table-striped">

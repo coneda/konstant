@@ -8,9 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Konstant::VERSION
   spec.authors       = ["Moritz Schepp"]
   spec.email         = ["moritz.schepp@gmail.com"]
-  spec.summary       = "Continous delivery made simple."
-  #spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = "Continous delivery made easy."
+  spec.homepage      = "https://github.com/coneda/konstant"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
