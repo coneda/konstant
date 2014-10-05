@@ -1,7 +1,9 @@
 # Konstant
 
-A simple continuous integration server with a rudimentary web UI, that allows
+A simple continuous integration server with a web UI, that allows
 you to implement a continuous delivery setup.
+
+Konstant is build with ruby and comes as a ruby gem.
 
 ## Installation
 
@@ -34,6 +36,8 @@ scheduler or both. The server has to be run from within the directory containing
     $ konstant run -w # provide the web UI (default http://0.0.0.0:9105)
     $ konstant run -s # provide the CI scheduler
     $ konstant run -w -s # provide both
+
+run `konstant --help` for some additional options.
 
 
 ### Adding projects
