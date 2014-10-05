@@ -3,7 +3,7 @@
 A simple continuous integration server with a web UI, that allows
 you to implement a continuous delivery setup.
 
-Konstant is build with ruby and comes as a ruby gem.
+Konstant is built with ruby and comes as a ruby gem.
 
 ## Installation
 
