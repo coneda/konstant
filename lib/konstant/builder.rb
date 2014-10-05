@@ -10,7 +10,6 @@ class Konstant::Builder
 
   def run
     Konstant.logger.info "building project '#{project.id}'"
-    puts "asdf"
 
     if build
       if previous_build_failed?

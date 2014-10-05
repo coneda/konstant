@@ -8,22 +8,24 @@ class Konstant::Runner
   attr_reader :build, :task
 
   def run
-    duration = Konstant.measure do
-      build.create
-
-      File.open status_file, "w" do |f|
-        Bundler.with_clean_env do
-          system environment, "#{build.project.path}/#{task} > #{stdout_file} 2> #{stderr_file}"
-          f.puts $?.exitstatus
+    if task == "build" || File.exists?("#{build.project.path}/#{task}")
+      duration = Konstant.measure do
+        build.create
+        File.open status_file, "w" do |f|
+          Bundler.with_clean_env do
+            system environment, "#{build.project.path}/#{task} > #{stdout_file} 2> #{stderr_file}"
+            f.puts $?.exitstatus
+          end
         end
       end
-    end
+      File.open "#{build.path}/#{task}.duration", "w" do |f|
+        f.puts duration
+      end
 
-    File.open "#{build.path}/#{task}.duration", "w" do |f|
-      f.puts duration
+      build.status(task) == 0
+    else
+      false
     end
-
-    build.status == 0
   end
 
   def environment

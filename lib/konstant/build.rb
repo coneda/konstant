@@ -20,7 +20,7 @@ class Konstant::Build
   end
 
   def ok?(task = 'build')
-    status(task) == 0
+    status(task) == nil ? nil : (status(task) == 0)
   end
 
   def failure?

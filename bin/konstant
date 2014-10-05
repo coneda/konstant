@@ -21,6 +21,7 @@ command = cli.cli_arguments.first
 end
 
 command = "version" if cli.config[:version]
+Konstant.configure "data_dir" => File.expand_path(".")
 
 case command
   when "version"
