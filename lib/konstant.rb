@@ -39,7 +39,7 @@ module Konstant
   end
 
   def self.env
-    ENV["RUBY_ENV"] || "development"
+    ENV["RUBY_ENV"] || "production"
   end
 
   def self.root
