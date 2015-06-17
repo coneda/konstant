@@ -72,7 +72,7 @@ case command
     Konstant.configure "./konstant.js"
     p Konstant.config
   when "init"
-    # system "cp -a #{Konstant.root}/data/templates/data_dir/* ."
+    system "cp -a #{Konstant.root}/data/templates/data_dir/* ."
     ["konstant-scheduler.conf", "konstant-web.conf"].each do |file|
       tpl = ERB.new(File.read "#{Konstant.root}/data/templates/#{file}.erb")
       File.open "#{Konstant.config["data_dir"]}/#{file}", "w" do |f|
