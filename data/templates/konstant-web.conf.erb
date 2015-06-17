@@ -1,0 +1,11 @@
+description "konstant ci web server (<%= Konstant.config['data_dir'] %>)"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+
+script
+  cd <%= Konstant.config['data_dir'] %>
+  konstant run -w
+end script
