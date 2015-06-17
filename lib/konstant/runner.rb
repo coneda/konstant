@@ -1,3 +1,5 @@
+require "bundler"
+
 class Konstant::Runner
 
   def initialize(build, task)
@@ -12,7 +14,7 @@ class Konstant::Runner
       duration = Konstant.measure do
         build.create
         File.open status_file, "w" do |f|
-          Bundler.with_clean_env do
+          ::Bundler.with_clean_env do
             system environment, "#{build.project.path}/#{task} > #{stdout_file} 2> #{stderr_file}"
             f.puts $?.exitstatus
           end

@@ -3,7 +3,7 @@ ENV["RUBY_ENV"] = "test"
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'konstant'
 
-require "debugger"
+require "byebug"
 
 Mail.defaults do
   delivery_method :test
