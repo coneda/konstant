@@ -12,7 +12,7 @@ class Konstant::Scheduler
       end
 
       (@threads.keys - project_ids).each do |project_id|
-        thread = @thread.delete project_id
+        thread = @threads.delete project_id
         thread.kill
         Konstant.logger.info "stopped worker for project '#{project_id}'"
       end

@@ -5,7 +5,10 @@ stop on runlevel [!2345]
 
 respawn
 
+setuid app
+setgid app
+
 script
   cd <%= Konstant.config['data_dir'] %>
-  konstant run -s
+  /opt/rbenv/shims/konstant run -s
 end script
